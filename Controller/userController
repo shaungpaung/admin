@@ -1,0 +1,89 @@
+<?php
+
+namespace Controller;
+
+class UserController
+{
+
+    // Database connection parameters
+    private $servername = "localhost";
+    private $username = "username";
+    private $password = "password";
+    private $database = "database_name";
+    private $conn;
+
+    // Constructor to establish database connection
+    public function __construct()
+    {
+        $this->conn = new \mysqli($this->servername, $this->username, $this->password, $this->database);
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+    }
+
+    // Create (Insert) Operation
+    public function create($name, $email)
+    {
+        $sql = "INSERT INTO users (name, email) VALUES ('$name', '$email')";
+        if ($this->conn->query($sql) === TRUE) {
+            return "New record created successfully";
+        } else {
+            return "Error: " . $sql . "<br>" . $this->conn->error;
+        }
+    }
+
+    // Read (Select) Operation
+    public function read()
+    {
+        $sql = "SELECT * FROM users";
+        $result = $this->conn->query($sql);
+        $users = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $users[] = $row;
+            }
+        }
+        return $users;
+    }
+
+    // Update Operation
+    public function update($id, $name, $email)
+    {
+        $sql = "UPDATE users SET name='$name', email='$email' WHERE id=$id";
+        if ($this->conn->query($sql) === TRUE) {
+            return "Record updated successfully";
+        } else {
+            return "Error updating record: " . $this->conn->error;
+        }
+    }
+
+    // Delete Operation
+    public function delete($id)
+    {
+        $sql = "DELETE FROM users WHERE id=$id";
+        if ($this->conn->query($sql) === TRUE) {
+            return "Record deleted successfully";
+        } else {
+            return "Error deleting record: " . $this->conn->error;
+        }
+    }
+
+    // Destructor to close database connection
+    public function __destruct()
+    {
+        $this->conn->close();
+    }
+}
+
+// Usage Example:
+/*
+$userController = new \Controller\UserController();
+echo $userController->create("John Doe", "john@example.com");
+echo "<br>";
+print_r($userController->read());
+echo "<br>";
+echo $userController->update(1, "Jane Doe", "jane@example.com");
+echo "<br>";
+echo $userController->delete(1);
+*/
+?>

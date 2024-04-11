@@ -1,0 +1,25 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.main-container,
+.main,
+.box-container,
+.report-container {
+  height: 100%;
+}
+
+.custom-hover-bg:hover {
+  background-color: lightblue;
+}
+
+.custom-hover-text:hover {
+  color: red;
+}
+
+.custom-hover-shadow:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
