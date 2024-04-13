@@ -1,3 +1,4 @@
+@import "bootstrap/scss/bootstrap";
 body,
 html {
   height: 100%;
@@ -13,7 +14,7 @@ html {
 }
 
 .custom-hover-bg:hover {
-  background-color: lightblue;
+  background-color: rgb(131, 131, 131);
 }
 
 .custom-hover-text:hover {
@@ -22,4 +23,25 @@ html {
 
 .custom-hover-shadow:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.edit {
+  background-color: aqua;
+  color: brown;
+}
+
+.delete {
+  background-color: rgb(255, 0, 0);
+  color: rgb(63, 42, 165);
+}
+
+.main-page {
+  height: 200px;
+}
+
+.table-container {
+  max-width: 100%;
+  max-height: 1000px;
+  /* Adjust height as needed */
+  overflow: auto;
 }

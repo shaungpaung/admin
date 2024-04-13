@@ -1,0 +1,26 @@
+/* Styles for desktop view */
+
+@media screen and (min-width: 992px) {
+  .table-container {
+    height: 400px;
+    /* Adjust height for desktop */
+  }
+}
+
+/* Styles for tablet view */
+
+@media screen and (max-width: 991px) and (min-width: 576px) {
+  .table-container {
+    height: 300px;
+    /* Adjust height for tablet */
+  }
+}
+
+/* Styles for mobile view */
+
+@media screen and (max-width: 575px) {
+  .table-container {
+    height: 200px;
+    /* Adjust height for mobile */
+  }
+}

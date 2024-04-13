@@ -7,20 +7,30 @@
     <title>Logistics Web Application</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-..." crossorigin="anonymous"></script>
+    <script src="index.js"></script>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="resposive.css" />
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-dark bg-info border-bottom border-body">
-
             <div class="container">
                 <a class="navbar-brand" href="#">Logistics Company</a>
-
-            </div>
-            <div class="d-flex me-5">
-                <button class="btn btn-light me-2 custom-hover-bg custom-hover-text custom-hover-shadow" id="loginBtn">Login</button>
-                <button class="btn btn-light" id="logoutBtn" style="display: none;">Logout</button>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-light ms-1 me-2 custom-hover-bg custom-hover-text custom-hover-shadow" id="loginModal">
+              Login
+            </button>
+                    <button class="btn btn-light" id="logoutBtn " style="display: none">
+              Logout
+            </button>
+                </div>
             </div>
         </nav>
     </header>
@@ -28,51 +38,363 @@
         <div class="navContainer container-sm col-md-2 bg-primary">
             <!-- Navigation Menu -->
             <ul class="list-group mt-3 mb-3">
-                <li class="list-group-item m-2 rounded custom-hover-bg custom-hover-text custom-hover-shadow">Dashboard</li>
-                <li class="list-group-item m-2 rounded custom-hover-bg custom-hover-text custom-hover-shadow">Jobs</li>
-                <li class="list-group-item m-2 rounded custom-hover-bg custom-hover-text custom-hover-shadow">Branch</li>
-                <li class="list-group-item m-2 rounded custom-hover-bg custom-hover-text custom-hover-shadow">Vehicles</li>
-                <li class="list-group-item m-2 rounded custom-hover-bg custom-hover-text custom-hover-shadow">Users</li>
+                <li class="list-group-item m-2 rounded custom-hover-bg custom-hover-text custom-hover-shadow" onclick="showDashboard()">
+                    Dashboard
+                </li>
+                <li class="list-group-item m-2 rounded custom-hover-bg custom-hover-text custom-hover-shadow" onclick="showJobs()">
+                    Jobs
+                </li>
+                <li class="list-group-item m-2 rounded custom-hover-bg custom-hover-text custom-hover-shadow" onclick="showBranch()">
+                    Branch
+                </li>
+                <li class="list-group-item m-2 rounded custom-hover-bg custom-hover-text custom-hover-shadow" onclick="showVehicles()">
+                    Vehicles
+                </li>
+                <li class="list-group-item m-2 rounded custom-hover-bg custom-hover-text custom-hover-shadow" onclick="showUsers()">
+                    Users
+                </li>
             </ul>
         </div>
-        <div class="main bg-danger col-md-10 container-xxl">
+
+        <!-- for dashboard route -->
+        <div class="main bg-danger col-md-10 container-xxl hidden" id="dashboard">
             <!-- Main Content Area -->
-            <div class="container-xl mt-3 mb-3">
-                <h1>Welcome to the Logistics Web Application</h1>
-                <p>
-                    This web application streamlines the operation of handling logistics for the company.
-                </p>
-                <p>
-                    You can manage jobs, sites, vehicles, and users using the navigation menu on the left.
-                </p>
+            <div class="container-xl border-body mt-3 mb-3">
+                <nav class="navbar bg-body-tertiary rounded">
+                    <div class="container-fluid ms-2">
+                        <form class="d-flex" role="search">
+                            <input class="form-control col-md-8 me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <button class="btn btn-outline-success ms-2 col-md-4" type="submit">
+                  Search
+                </button>
+                        </form>
+                        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">
+                Create Dashboard
+              </button>
+                    </div>
+                </nav>
+                <div class="table-container mt-3">
+                    <div class="main-page bg-success rounded">
+                        <table class="table table-bordered">
+                            <thead class="rounded sticky-top">
+                                <tr>
+                                    <th class="text-center" scope="col">No</th>
+                                    <th class="text-center" scope="col">First</th>
+                                    <th class="text-center" scope="col">Last</th>
+                                    <th class="text-center" scope="col">Handle</th>
+                                    <th class="text-center" scope="col">Edit</th>
+                                    <th class="text-center" scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody class="rounded">
+                                <tr class="rounded">
+                                    <th class="text-center" scope="row">1</th>
+                                    <td class="text-center">Mark</td>
+                                    <td class="text-center">Otto</td>
+                                    <td class="text-center">@mdo</td>
+                                    <th class="text-center">
+                                        <button class="edit btn custom-hover-bg custom-hover-text custom-hover-shadow">
+                        Edit
+                      </button>
+                                    </th>
+                                    <td class="text-center">
+                                        <button class="delete btn custom-hover-bg custom-hover-text custom-hover-shadow">
+                        Delete
+                      </button>
+                                    </td>
+                                </tr>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- for jobs page route -->
+        <div class="main bg-danger col-md-10 container-xxl hidden" id="jobs">
+            <!-- Main Content Area -->
+            <div class="container-xl border-body mt-3 mb-3">
+                <nav class="navbar bg-body-tertiary rounded">
+                    <div class="container-fluid ms-2">
+                        <form class="d-flex" role="search">
+                            <input class="form-control col-md-8 me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <button class="btn btn-outline-success ms-2 col-md-4" type="submit">
+                  Search
+                </button>
+                        </form>
+                        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">
+                Create Job
+              </button>
+                    </div>
+                </nav>
+                <div class="table-container mt-3">
+                    <div class="main-page bg-success rounded">
+                        <table class="table table-bordered">
+                            <thead class="rounded sticky-top">
+                                <tr>
+                                    <th class="text-center" scope="col">No</th>
+                                    <th class="text-center" scope="col">First</th>
+                                    <th class="text-center" scope="col">Last</th>
+                                    <th class="text-center" scope="col">Handle</th>
+                                    <th class="text-center" scope="col">Edit</th>
+                                    <th class="text-center" scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody class="rounded">
+                                <tr class="rounded">
+                                    <th class="text-center" scope="row">1</th>
+                                    <td class="text-center">Mark</td>
+                                    <td class="text-center">Otto</td>
+                                    <td class="text-center">@mdo</td>
+                                    <th class="text-center">
+                                        <button class="edit btn custom-hover-bg custom-hover-text custom-hover-shadow">
+                        Edit
+                      </button>
+                                    </th>
+                                    <td class="text-center">
+                                        <button class="delete btn custom-hover-bg custom-hover-text custom-hover-shadow">
+                        Delete
+                      </button>
+                                    </td>
+                                </tr>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- for brach page route -->
+        <div class="main bg-danger col-md-10 container-xxl hidden" id="branch">
+            <!-- Main Content Area -->
+            <div class="container-xl border-body mt-3 mb-3">
+                <nav class="navbar bg-body-tertiary rounded">
+                    <div class="container-fluid ms-2">
+                        <form class="d-flex" role="search">
+                            <input class="form-control col-md-8 me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <button class="btn btn-outline-success ms-2 col-md-4" type="submit">
+                  Search
+                </button>
+                        </form>
+                        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">
+                Create Branch
+              </button>
+                    </div>
+                </nav>
+                <div class="table-container mt-3">
+                    <div class="main-page bg-success rounded">
+                        <table class="table table-bordered">
+                            <thead class="rounded sticky-top">
+                                <tr>
+                                    <th class="text-center" scope="col">No</th>
+                                    <th class="text-center" scope="col">First</th>
+                                    <th class="text-center" scope="col">Last</th>
+                                    <th class="text-center" scope="col">Handle</th>
+                                    <th class="text-center" scope="col">Edit</th>
+                                    <th class="text-center" scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody class="rounded">
+                                <tr class="rounded">
+                                    <th class="text-center" scope="row">1</th>
+                                    <td class="text-center">Mark</td>
+                                    <td class="text-center">Otto</td>
+                                    <td class="text-center">@mdo</td>
+                                    <th class="text-center">
+                                        <button class="edit btn custom-hover-bg custom-hover-text custom-hover-shadow">
+                        Edit
+                      </button>
+                                    </th>
+                                    <td class="text-center">
+                                        <button class="delete btn custom-hover-bg custom-hover-text custom-hover-shadow">
+                        Delete
+                      </button>
+                                    </td>
+                                </tr>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- for vehicle page route -->
+        <div class="main bg-danger col-md-10 container-xxl hidden" id="vehicles">
+            <!-- Main Content Area -->
+            <div class="container-xl border-body mt-3 mb-3">
+                <nav class="navbar bg-body-tertiary rounded">
+                    <div class="container-fluid ms-2">
+                        <form class="d-flex" role="search">
+                            <input class="form-control col-md-8 me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <button class="btn btn-outline-success ms-2 col-md-4" type="submit">
+                  Search
+                </button>
+                        </form>
+                        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">
+                Create Vehicle
+              </button>
+                    </div>
+                </nav>
+                <div class="table-container mt-3">
+                    <div class="main-page bg-success rounded">
+                        <table class="table table-bordered">
+                            <thead class="rounded sticky-top">
+                                <tr>
+                                    <th class="text-center" scope="col">No</th>
+                                    <th class="text-center" scope="col">First</th>
+                                    <th class="text-center" scope="col">Last</th>
+                                    <th class="text-center" scope="col">Handle</th>
+                                    <th class="text-center" scope="col">Edit</th>
+                                    <th class="text-center" scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody class="rounded">
+                                <tr class="rounded">
+                                    <th class="text-center" scope="row">1</th>
+                                    <td class="text-center">Mark</td>
+                                    <td class="text-center">Otto</td>
+                                    <td class="text-center">@mdo</td>
+                                    <th class="text-center">
+                                        <button class="edit btn custom-hover-bg custom-hover-text custom-hover-shadow">
+                        Edit
+                      </button>
+                                    </th>
+                                    <td class="text-center">
+                                        <button class="delete btn custom-hover-bg custom-hover-text custom-hover-shadow">
+                        Delete
+                      </button>
+                                    </td>
+                                </tr>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- for users page route -->
+        <div class="main bg-danger col-md-10 container-xxl hidden" id="users">
+            <!-- Main Content Area -->
+            <div class="container-xl border-body mt-3 mb-3">
+                <nav class="navbar bg-body-tertiary rounded">
+                    <div class="container-fluid ms-2">
+                        <form class="d-flex" role="search">
+                            <input class="form-control col-md-8 me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <button class="btn btn-outline-success ms-2 col-md-4" type="submit">
+                  Search
+                </button>
+                        </form>
+                        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">
+                Create User
+              </button>
+                    </div>
+                </nav>
+                <div class="table-container mt-3">
+                    <div class="main-page bg-success rounded">
+                        <table class="table table-bordered">
+                            <thead class="rounded sticky-top">
+                                <tr>
+                                    <th class="text-center" scope="col">No</th>
+                                    <th class="text-center" scope="col">First</th>
+                                    <th class="text-center" scope="col">Last</th>
+                                    <th class="text-center" scope="col">Handle</th>
+                                    <th class="text-center" scope="col">Edit</th>
+                                    <th class="text-center" scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody class="rounded">
+                                <tr class="rounded">
+                                    <th class="text-center" scope="row">1</th>
+                                    <td class="text-center">Mark</td>
+                                    <td class="text-center">Otto</td>
+                                    <td class="text-center">@mdo</td>
+                                    <th class="text-center">
+                                        <button class="edit btn custom-hover-bg custom-hover-text custom-hover-shadow">
+                        Edit
+                      </button>
+                                    </th>
+                                    <td class="text-center">
+                                        <button class="delete btn custom-hover-bg custom-hover-text custom-hover-shadow">
+                        Delete
+                      </button>
+                                    </td>
+                                </tr>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal fade" id="loginModal " tabindex="-1 " aria-labelledby="loginModalLabel " aria-hidden="true ">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="loginModalLabel ">Login</h5>
+                    <button type="button " class="btn-close" data-bs-dismiss="modal " aria-label="Close "></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username">
+                            <label for="username " class="form-label">Username</label>
+                            <input type="text " class="form-control" id="username " />
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password">
+                            <label for="password " class="form-label">Password</label>
+                            <input type="password " class="form-control" id="password " />
                         </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="submit " class="btn btn-primary">Login</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Show login m
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        User Create Form
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">User Name</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="exampleInputPassword1"
+                />
+              </div>
+              <div class="mb-3 d-flex flex-row-reverse">
+                <button type="submit" class="btn btn-primary">Create</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
